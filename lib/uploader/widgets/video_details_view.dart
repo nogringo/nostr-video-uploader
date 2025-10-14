@@ -154,10 +154,23 @@ class VideoDetailsView extends StatelessWidget {
           ],
         ),
         SizedBox(height: 16),
-        FilledButton(
-          onPressed: UploaderController.to.upload,
-          child: Text("Upload"),
-        ),
+        Obx(() {
+          return FilledButton(
+            onPressed: UploaderController.to.uploadState.value == 0
+                ? UploaderController.to.upload
+                : null,
+            child: Text(
+              [
+                "Upload",
+                "Fetching your blossoms servers",
+                "Uploading video",
+                "Uploading thumbnail",
+                "Sending nostr event",
+                "Done",
+              ][UploaderController.to.uploadState.value],
+            ),
+          );
+        }),
         SizedBox(height: 8),
         TextButton(
           onPressed: () {

@@ -5,6 +5,7 @@ import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/uploader/layouts/large_layout.dart';
 import 'package:nostr_video_uploader/uploader/layouts/small_layout.dart';
 import 'package:nostr_video_uploader/uploader/uploader_controller.dart';
+import 'package:nostr_video_uploader/uploader/widgets/links_view.dart';
 
 class UploaderScreen extends StatelessWidget {
   const UploaderScreen({super.key});
@@ -20,6 +21,10 @@ class UploaderScreen extends StatelessWidget {
         Get.put(UploaderController());
 
         return Obx(() {
+          if (UploaderController.to.nevent.value != null) {
+            return LinksView();
+          }
+
           if (UploaderController.to.video.value == null) {
             return Scaffold(
               appBar: AppBar(),

@@ -4,9 +4,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ndk/domain_layer/entities/nip_01_event.dart';
+import 'package:nostr_video_uploader/models/video_metadata.dart';
 import 'package:nostr_video_uploader/repository.dart';
-import 'package:nostr_video_uploader/utils/fetch_info_from_bytes.dart';
-import 'package:nostr_video_uploader/utils/get_video_duration.dart';
+import 'package:nostr_video_uploader/utils/get_video_metadata.dart';
+import 'package:nostr_video_uploader/utils/nevent.dart';
 import 'package:path/path.dart' as p;
 
 class UploaderController extends GetxController {
@@ -20,17 +22,21 @@ class UploaderController extends GetxController {
 
   Rx<bool> isPickingVideo = false.obs;
   Rx<Uint8List?> video = Rx<Uint8List?>(null);
+  late VideoMetadata videoMetadata;
   String videoExtention = "mp4";
 
   Rx<bool> isPickingThumbnail = false.obs;
   Rx<Uint8List?> thumbnail = Rx<Uint8List?>(null);
-  String thumbnailExtention = "png";
+  String thumbnailExtention = "jpeg";
 
   Rx<bool> isShortVideo = false.obs;
   Rx<bool> isNSFW = false.obs;
 
   Rx<bool> isAccountsExpanded = false.obs;
-  Rx<bool> isUploading = false.obs;
+  Rx<int> uploadState = 0.obs;
+
+  Nevent? rawNevent;
+  Rx<String?> nevent = Rx<String?>(null);
 
   void selectVideo() async {
     isPickingVideo.value = true;
@@ -48,11 +54,16 @@ class UploaderController extends GetxController {
 
     if (kIsWeb) {
       video.value = result.files.first.bytes;
-      return;
+    } else {
+      File file = File(result.files.single.path!);
+      video.value = await file.readAsBytes();
     }
 
-    File file = File(result.files.single.path!);
-    video.value = await file.readAsBytes();
+    videoMetadata = await getVideoMetadata(video.value!);
+
+    if (videoMetadata.thumbnail != null) {
+      thumbnail.value = videoMetadata.thumbnail;
+    }
   }
 
   void selectThumbnail() async {
@@ -66,7 +77,10 @@ class UploaderController extends GetxController {
     if (result == null) return;
     if (result.files.isEmpty) return;
 
-    thumbnailExtention = p.extension(result.files.first.name).split(".").join("");
+    thumbnailExtention = p
+        .extension(result.files.first.name)
+        .split(".")
+        .join("");
 
     if (kIsWeb) {
       thumbnail.value = result.files.first.bytes;
@@ -106,38 +120,135 @@ class UploaderController extends GetxController {
   void upload() async {
     final ndk = Repository.ndk;
 
-    isUploading.value = true;
+    uploadState.value = 1;
 
     final userBlossoms = await ndk.blossomUserServerList.getUserServerList(
       pubkeys: [ndk.accounts.getPublicKey()!],
     );
+    final defaultBlossoms = [
+      "https://blossom.yakihonne.com",
+      "https://blossom-01.uid.ovh",
+      "https://blossom.primal.net",
+    ];
+    final blossoms = userBlossoms ?? defaultBlossoms;
 
-    final a = await getVideoDuration(video.value!);
-    print(a);
+    uploadState.value = 2;
 
-    // final videoUploadResponse = await ndk.blossom.uploadBlob(
-    //   data: video.value!,
-    //   serverUrls: userBlossoms ?? ["https://blossom-01.uid.ovh"],
-    //   contentType: "video/$videoExtention",
-    // );
+    final videoUploadResponse = await ndk.blossom.uploadBlob(
+      data: video.value!,
+      serverUrls: blossoms,
+      contentType: "video/$videoExtention",
+    );
 
-    // if (thumbnail.value != null) {
-    //   final thumbnailUploadResponse = await ndk.blossom.uploadBlob(
-    //     data: thumbnail.value!,
-    //     serverUrls: userBlossoms ?? ["https://blossom-01.uid.ovh"],
-    //     contentType: "image/$thumbnailExtention",
-    //   );
-    // }
+    final successVideoUploadResponses = videoUploadResponse.where(
+      (res) => res.success,
+    );
 
-    final imeta = ["imeta", "dim"];
+    if (successVideoUploadResponses.isEmpty) {
+      // TODO show error
+      return;
+    }
+
+    final videoSha256 = successVideoUploadResponses.first.descriptor!.sha256;
+
+    final videoUrls = blossoms.map((url) {
+      final normalizedUrl = url.endsWith("/") ? url : "$url/";
+      return "$normalizedUrl$videoSha256.$videoExtention";
+    });
+
+    final imeta = [
+      "imeta",
+      "dim ${videoMetadata.width}x${videoMetadata.height}",
+      "url ${videoUrls.first}",
+      "x $videoSha256",
+      "m video/$videoExtention",
+    ];
+
+    if (thumbnail.value != null) {
+      uploadState.value = 3;
+
+      final thumbnailUploadResponse = await ndk.blossom.uploadBlob(
+        data: thumbnail.value!,
+        serverUrls: blossoms,
+        contentType: "image/$thumbnailExtention",
+      );
+
+      final successThumbnailUploadResponses = thumbnailUploadResponse.where(
+        (res) => res.success,
+      );
+
+      final thumbnailSha256 =
+          successThumbnailUploadResponses.first.descriptor!.sha256;
+      imeta.addAll(
+        blossoms.map((url) {
+          final normalizedUrl = url.endsWith("/") ? url : "$url/";
+          return "image $normalizedUrl$thumbnailSha256.$thumbnailExtention";
+        }),
+      );
+    }
+
+    imeta.addAll(videoUrls.skip(1).map((url) => "fallback $url"));
+
+    final description = descriptionController.text.trim();
+
+    final eventTags = [
+      ["title", titleController.text.trim()],
+      [
+        "published_at",
+        "${firstTimePublished.value.millisecondsSinceEpoch ~/ 1000}",
+      ],
+      ["alt", description],
+
+      imeta,
+
+      ["duration", videoMetadata.duration.inSeconds.toString()],
+    ];
+
+    eventTags.addIf(isNSFW, ["content-warning", "nsfw"]);
+
+    eventTags.addAll(tags.map((tag) => ["t", tag]));
+
+    final nostrEvent = Nip01Event(
+      pubKey: ndk.accounts.getPublicKey()!,
+      kind: isShortVideo.value ? 22 : 21,
+      tags: eventTags,
+      content: description,
+    );
+
+    uploadState.value = 4;
+
+    final broadcastRes = ndk.broadcast.broadcast(nostrEvent: nostrEvent);
+
+    final relayBroadcastResponses = await broadcastRes.broadcastDoneFuture;
+
+    rawNevent = Nevent(
+      eventId: nostrEvent.id,
+      author: nostrEvent.pubKey,
+      kind: nostrEvent.kind,
+      relays: relayBroadcastResponses
+          .where((res) => res.broadcastSuccessful)
+          .map((res) => res.relayUrl)
+          .toList(),
+    );
+    nevent.value = NeventCodec.encode(rawNevent!);
+
+    uploadState.value = 5;
   }
 
   void reset() {
     titleController.clear();
     descriptionController.clear();
+    tagsController.clear();
+    tags.clear();
+    firstTimePublished.value = DateTime.now();
     video.value = null;
     thumbnail.value = null;
+    videoExtention = "mp4";
+    thumbnailExtention = "jpeg";
     isShortVideo.value = false;
     isNSFW.value = false;
+    uploadState.value = 0;
+    rawNevent = null;
+    nevent.value = null;
   }
 }
