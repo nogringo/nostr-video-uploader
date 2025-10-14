@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nostr_video_uploader/uploader/uploader_controller.dart';
 import 'package:nostr_video_uploader/uploader/widgets/link_view.dart';
 
@@ -16,6 +18,7 @@ class LinksView extends StatelessWidget {
             child: Text("New upload"),
           ),
           SizedBox(width: 12),
+          if (!kIsWeb && GetPlatform.isDesktop) SizedBox(width: 154),
         ],
       ),
       body: SingleChildScrollView(
