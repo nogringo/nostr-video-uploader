@@ -1,4 +1,4 @@
-package com.example.nostr_video_uploader
+package io.github.nogringo.nostr_video_uploader
 
 import io.flutter.embedding.android.FlutterActivity
 

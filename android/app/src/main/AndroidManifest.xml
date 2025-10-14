@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="nostr_video_uploader"
+        android:label="Nostr video uploader"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

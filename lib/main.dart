@@ -12,6 +12,9 @@ import 'package:window_manager/window_manager.dart';
 // TODO add participants support
 // TODO add reference links support
 // TODO add more warning
+// TODO add a link to njump
+// TODO must be able to remove an account
+// TODO add icon on linux app
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
