@@ -91,6 +91,8 @@ class VideoDetailsView extends StatelessWidget {
           ],
         ),
         Obx(() {
+          print("here");
+          print(UploaderController.to.thumbnail.value == null);
           if (UploaderController.to.thumbnail.value == null) {
             return SizedBox(height: 16);
           }

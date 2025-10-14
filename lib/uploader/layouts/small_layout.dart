@@ -8,11 +8,11 @@ class SmallLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.only(right: 12, left: 12, bottom: kToolbarHeight),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: kToolbarHeight),
       children: [
         AccountsView(direction: Axis.horizontal),
         SizedBox(height: 16),
-        Expanded(child: VideoDetailsView()),
+        VideoDetailsView(),
       ],
     );
   }

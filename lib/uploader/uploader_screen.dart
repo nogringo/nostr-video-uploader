@@ -27,7 +27,6 @@ class UploaderScreen extends StatelessWidget {
 
           if (UploaderController.to.video.value == null) {
             return Scaffold(
-              appBar: AppBar(),
               body: Center(
                 child: SizedBox(
                   width: 400,
@@ -43,7 +42,6 @@ class UploaderScreen extends StatelessWidget {
           }
 
           return Scaffold(
-            appBar: AppBar(),
             body: LayoutBuilder(
               builder: (context, constraints) {
                 final isLarge = constraints.maxWidth > 600;

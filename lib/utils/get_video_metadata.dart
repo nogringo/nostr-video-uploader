@@ -22,9 +22,7 @@ Future<VideoMetadata> getVideoMetadata(Uint8List bytes) async {
     );
 
     // Wait for tracks to be available
-    await player.stream.tracks.firstWhere(
-      (tracks) => tracks.video.length > 2,
-    );
+    await player.stream.tracks.firstWhere((tracks) => tracks.video.length > 2);
 
     final duration = player.state.duration;
 

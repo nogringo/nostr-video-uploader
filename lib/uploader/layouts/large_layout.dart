@@ -10,7 +10,7 @@ class LargeLayout extends StatelessWidget {
     return Align(
       alignment: Alignment(0, -0.33),
       child: SingleChildScrollView(
-        padding: EdgeInsets.only(right: 12, left: 12, bottom: kToolbarHeight),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: kToolbarHeight),
         child: Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 800),
