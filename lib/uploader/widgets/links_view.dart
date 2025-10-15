@@ -29,6 +29,10 @@ class LinksView extends StatelessWidget {
               url: "nostr:${UploaderController.to.nevent.value}",
             ),
             LinkView(
+              title: "Njump",
+              url: "https://njump.me/${UploaderController.to.nevent.value}",
+            ),
+            LinkView(
               title: "Yakihonne",
               url:
                   "https://yakihonne.com/video/${UploaderController.to.nevent.value}",

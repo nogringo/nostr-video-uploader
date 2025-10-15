@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mime/mime.dart';
 import 'package:ndk/domain_layer/entities/nip_01_event.dart';
 import 'package:nostr_video_uploader/models/video_metadata.dart';
 import 'package:nostr_video_uploader/repository.dart';
@@ -24,10 +25,12 @@ class UploaderController extends GetxController {
   Rx<Uint8List?> video = Rx<Uint8List?>(null);
   late VideoMetadata videoMetadata;
   String videoExtention = "mp4";
+  String videoBasename = "";
 
   Rx<bool> isPickingThumbnail = false.obs;
   Rx<Uint8List?> thumbnail = Rx<Uint8List?>(null);
   String thumbnailExtention = "jpeg";
+  String thumbnailBasename = "";
 
   Rx<bool> isShortVideo = false.obs;
   Rx<bool> isNSFW = false.obs;
@@ -49,8 +52,9 @@ class UploaderController extends GetxController {
     if (result == null) return;
     if (result.files.isEmpty) return;
 
-    titleController.text = p.basenameWithoutExtension(result.files.first.name);
-    videoExtention = p.extension(result.files.first.name).split(".").join("");
+    videoBasename = result.files.first.name;
+    titleController.text = p.basenameWithoutExtension(videoBasename);
+    videoExtention = p.extension(videoBasename).split(".").join("");
 
     if (kIsWeb) {
       video.value = result.files.first.bytes;
@@ -77,10 +81,8 @@ class UploaderController extends GetxController {
     if (result == null) return;
     if (result.files.isEmpty) return;
 
-    thumbnailExtention = p
-        .extension(result.files.first.name)
-        .split(".")
-        .join("");
+    thumbnailBasename = result.files.first.name;
+    thumbnailExtention = p.extension(thumbnailBasename).split(".").join("");
 
     if (kIsWeb) {
       thumbnail.value = result.files.first.bytes;
@@ -134,10 +136,12 @@ class UploaderController extends GetxController {
 
     uploadState.value = 2;
 
+    final videoContentType = lookupMimeType(videoBasename);
+
     final videoUploadResponse = await ndk.blossom.uploadBlob(
       data: video.value!,
       serverUrls: blossoms,
-      contentType: "video/$videoExtention",
+      contentType: videoContentType,
     );
 
     final successVideoUploadResponses = videoUploadResponse.where(
@@ -161,7 +165,7 @@ class UploaderController extends GetxController {
       "dim ${videoMetadata.width}x${videoMetadata.height}",
       "url ${videoUrls.first}",
       "x $videoSha256",
-      "m video/$videoExtention",
+      "m $videoContentType",
     ];
 
     if (thumbnail.value != null) {
@@ -170,7 +174,7 @@ class UploaderController extends GetxController {
       final thumbnailUploadResponse = await ndk.blossom.uploadBlob(
         data: thumbnail.value!,
         serverUrls: blossoms,
-        contentType: "image/$thumbnailExtention",
+        contentType: lookupMimeType(thumbnailBasename),
       );
 
       final successThumbnailUploadResponses = thumbnailUploadResponse.where(
@@ -244,7 +248,9 @@ class UploaderController extends GetxController {
     video.value = null;
     thumbnail.value = null;
     videoExtention = "mp4";
+    videoBasename = "";
     thumbnailExtention = "jpeg";
+    thumbnailBasename = "";
     isShortVideo.value = false;
     isNSFW.value = false;
     uploadState.value = 0;
