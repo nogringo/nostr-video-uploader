@@ -57,6 +57,21 @@ class AccountsView extends StatelessWidget {
               icon: Icon(Icons.add),
             ),
 
+          if (UploaderController.to.isAccountsExpanded.value)
+            IconButton(
+              onPressed: () async {
+                Repository.ndk.accounts.logout();
+                await nSaveAccountsState(Repository.ndk);
+                if (Repository.ndk.accounts.accounts.isNotEmpty) {
+                  Repository.ndk.accounts.switchAccount(
+                    pubkey: Repository.ndk.accounts.accounts.keys.first,
+                  );
+                }
+                Repository.to.update();
+              },
+              icon: Icon(Icons.logout),
+            ),
+
           IconButton(
             onPressed: () {
               UploaderController.to.isAccountsExpanded.value =
