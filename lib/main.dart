@@ -10,7 +10,7 @@ import 'package:nostr_widgets/l10n/app_localizations.dart' as nostr_widgets;
 import 'package:window_manager/window_manager.dart';
 
 // TODO add drag and drop
-
+// TODO add optional relay
 // TODO later add more warning
 
 void main() async {
