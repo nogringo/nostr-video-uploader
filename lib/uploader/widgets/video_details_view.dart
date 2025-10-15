@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/uploader/uploader_controller.dart';
 import 'package:intl/intl.dart';
+import 'package:nostr_widgets/nostr_widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VideoDetailsView extends StatelessWidget {
   const VideoDetailsView({super.key});
@@ -112,6 +115,67 @@ class VideoDetailsView extends StatelessWidget {
                       label: Text(link),
                       shape: StadiumBorder(),
                       onDeleted: () => UploaderController.to.links.remove(link),
+                    ),
+                  )
+                  .toList(),
+            ),
+          );
+        }),
+        SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                "Participants",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: TextButton.icon(
+                onPressed: () async {
+                  await launchUrl(Uri.parse('https://npub.world/'));
+                },
+                label: Text("Npub.world"),
+                icon: Icon(Icons.open_in_new),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 4),
+        TextField(
+          controller: UploaderController.to.participantsController,
+          decoration: InputDecoration(
+            hintText: "npub",
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+            suffixIcon: Padding(padding: const EdgeInsets.only(right: 4)),
+          ),
+          onChanged: UploaderController.to.participantFieldChanged,
+        ),
+        Obx(() {
+          if (UploaderController.to.participants.isEmpty) {
+            return Container();
+          }
+
+          return Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Wrap(
+              runSpacing: 8,
+              spacing: 8,
+              children: UploaderController.to.participants
+                  .map(
+                    (participantPubkey) => Chip(
+                      avatar: NPicture(
+                        ndk: Repository.ndk,
+                        pubkey: participantPubkey,
+                      ),
+                      label: NName(
+                        ndk: Repository.ndk,
+                        pubkey: participantPubkey,
+                      ),
+                      shape: StadiumBorder(),
+                      onDeleted: () => UploaderController.to.participants
+                          .remove(participantPubkey),
                     ),
                   )
                   .toList(),

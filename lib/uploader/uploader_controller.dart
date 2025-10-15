@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mime/mime.dart';
 import 'package:ndk/domain_layer/entities/nip_01_event.dart';
+import 'package:nip19/nip19.dart';
 import 'package:nostr_video_uploader/models/video_metadata.dart';
 import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/utils/get_video_metadata.dart';
@@ -22,6 +23,8 @@ class UploaderController extends GetxController {
   RxSet<String> tags = RxSet<String>({});
   final linksController = TextEditingController();
   RxSet<String> links = RxSet<String>({});
+  final participantsController = TextEditingController();
+  RxSet<String> participants = RxSet<String>({});
   Rx<DateTime> firstTimePublished = Rx<DateTime>(DateTime.now());
 
   Rx<bool> isPickingVideo = false.obs;
@@ -105,7 +108,6 @@ class UploaderController extends GetxController {
   void descriptionFieldFocusChanged(bool hasFocus) {
     if (hasFocus) return;
     final extraction = extractLinksAndHashtags(descriptionController.text);
-    print(extraction.links);
     tags.addAll(extraction.hashtags);
     links.addAll(extraction.links);
   }
@@ -127,6 +129,16 @@ class UploaderController extends GetxController {
   void addLink() {
     links.add(linksController.text.trim());
     linksController.clear();
+  }
+
+  void participantFieldChanged(String value) {
+    try {
+      final pubkey = Nip19.npubToHex(value.trim());
+      participants.add(pubkey);
+      participantsController.clear();
+    } catch (e) {
+      //
+    }
   }
 
   void selectFirstTimePublished() async {
@@ -231,6 +243,7 @@ class UploaderController extends GetxController {
     ];
 
     eventTags.addIf(isNSFW, ["content-warning", "nsfw"]);
+    eventTags.addAll(participants.map((pubkey) => ["p", pubkey]));
     eventTags.addAll(tags.map((tag) => ["t", tag]));
     eventTags.addAll(links.map((link) => ["r", link]));
 

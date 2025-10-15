@@ -9,9 +9,8 @@ import 'package:nostr_widgets/functions/functions.dart';
 import 'package:nostr_widgets/l10n/app_localizations.dart' as nostr_widgets;
 import 'package:window_manager/window_manager.dart';
 
-// TODO add participants support
-// TODO add reference links support
 // TODO add drag and drop
+// TODO add git url and russell link
 
 // TODO later add more warning
 
