@@ -11,6 +11,7 @@ import 'package:window_manager/window_manager.dart';
 
 // TODO add drag and drop
 // TODO add optional relay
+// TODO add client tag
 // TODO later add more warning
 
 void main() async {
