@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:nostr_video_uploader/l10n/app_localizations.dart';
 import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/uploader/uploader_controller.dart';
 import 'package:intl/intl.dart';
@@ -12,10 +13,11 @@ class VideoDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text("Title", style: Theme.of(context).textTheme.titleMedium),
+        Text(l10n.title, style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 4),
         Focus(
           onFocusChange: UploaderController.to.titleFieldFocusChanged,
@@ -29,7 +31,7 @@ class VideoDetailsView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 16),
-        Text("Description", style: Theme.of(context).textTheme.titleMedium),
+        Text(l10n.description, style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 4),
         Focus(
           onFocusChange: UploaderController.to.descriptionFieldFocusChanged,
@@ -44,7 +46,7 @@ class VideoDetailsView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 16),
-        Text("Tags", style: Theme.of(context).textTheme.titleMedium),
+        Text(l10n.tags, style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 4),
         TextField(
           controller: UploaderController.to.tagsController,
@@ -84,7 +86,7 @@ class VideoDetailsView extends StatelessWidget {
           );
         }),
         SizedBox(height: 16),
-        Text("Links", style: Theme.of(context).textTheme.titleMedium),
+        Text(l10n.links, style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 4),
         TextField(
           controller: UploaderController.to.linksController,
@@ -127,7 +129,7 @@ class VideoDetailsView extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                "Participants",
+                l10n.participants,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
@@ -137,7 +139,7 @@ class VideoDetailsView extends StatelessWidget {
                 onPressed: () async {
                   await launchUrl(Uri.parse('https://npub.world/'));
                 },
-                label: Text("Npub.world"),
+                label: Text(l10n.npubWorld),
                 icon: Icon(Icons.open_in_new),
               ),
             ),
@@ -147,7 +149,7 @@ class VideoDetailsView extends StatelessWidget {
         TextField(
           controller: UploaderController.to.participantsController,
           decoration: InputDecoration(
-            hintText: "npub",
+            hintText: l10n.npub,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
             suffixIcon: Padding(padding: const EdgeInsets.only(right: 4)),
           ),
@@ -189,7 +191,7 @@ class VideoDetailsView extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                "Thumbnail",
+                l10n.thumbnail,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
@@ -198,7 +200,7 @@ class VideoDetailsView extends StatelessWidget {
                 onPressed: UploaderController.to.isPickingThumbnail.value
                     ? null
                     : UploaderController.to.selectThumbnail,
-                label: Text("Select Thumbnail"),
+                label: Text(l10n.selectThumbnail),
                 icon: Icon(Icons.image),
               );
             }),
@@ -222,7 +224,7 @@ class VideoDetailsView extends StatelessWidget {
           return ListTile(
             contentPadding: EdgeInsets.zero,
             title: Text(
-              "First time the video was published",
+              l10n.firstTimeTheVideoWasPublished,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             subtitle: Text(
@@ -232,7 +234,7 @@ class VideoDetailsView extends StatelessWidget {
             ),
             trailing: FilledButton.icon(
               onPressed: UploaderController.to.selectFirstTimePublished,
-              label: Text("Select Date"),
+              label: Text(l10n.selectDate),
               icon: Icon(Icons.calendar_month),
             ),
           );
@@ -241,7 +243,7 @@ class VideoDetailsView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Short Video", style: Theme.of(context).textTheme.titleMedium),
+            Text(l10n.shortVideo, style: Theme.of(context).textTheme.titleMedium),
             Obx(() {
               return Switch(
                 value: UploaderController.to.isShortVideo.value,
@@ -256,7 +258,7 @@ class VideoDetailsView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("NSFW", style: Theme.of(context).textTheme.titleMedium),
+            Text(l10n.nsfw, style: Theme.of(context).textTheme.titleMedium),
             Obx(() {
               return Switch(
                 value: UploaderController.to.isNSFW.value,
@@ -275,12 +277,12 @@ class VideoDetailsView extends StatelessWidget {
                 : null,
             child: Text(
               [
-                "Upload",
-                "Fetching your blossoms servers",
-                "Uploading video",
-                "Uploading thumbnail",
-                "Sending nostr event",
-                "Done",
+                l10n.upload,
+                l10n.fetchingYourBlossomsServers,
+                l10n.uploadingVideo,
+                l10n.uploadingThumbnail,
+                l10n.sendingNostrEvent,
+                l10n.done,
               ][UploaderController.to.uploadState.value],
             ),
           );
@@ -290,27 +292,27 @@ class VideoDetailsView extends StatelessWidget {
           onPressed: () {
             Get.dialog(
               AlertDialog(
-                title: Text("Discard Changes"),
-                content: Text("Your changes will be lost."),
+                title: Text(l10n.discardChanges),
+                content: Text(l10n.yourChangesWillBeLost),
                 actions: [
                   TextButton(
                     onPressed: () {
                       Get.back();
                     },
-                    child: Text("Back"),
+                    child: Text(l10n.back),
                   ),
                   FilledButton(
                     onPressed: () {
                       UploaderController.to.reset();
                       Get.back();
                     },
-                    child: Text("Reset"),
+                    child: Text(l10n.reset),
                   ),
                 ],
               ),
             );
           },
-          child: Text("Reset"),
+          child: Text(l10n.reset),
         ),
         SizedBox(height: 32),
         Wrap(
@@ -329,11 +331,11 @@ class VideoDetailsView extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("Made with"),
+                  Text(l10n.madeWith),
                   SizedBox(width: 8),
                   Icon(Icons.favorite),
                   SizedBox(width: 8),
-                  Text("by"),
+                  Text(l10n.by),
                   SizedBox(width: 8),
                   NPicture(
                     ndk: Repository.ndk,
@@ -358,7 +360,7 @@ class VideoDetailsView extends StatelessWidget {
                   ),
                 );
               },
-              label: Text("View on git"),
+              label: Text(l10n.viewOnGit),
               icon: SvgPicture.asset(
                 'assets/images/git.svg',
                 colorFilter: ColorFilter.mode(

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:ndk/ndk.dart';
+import 'package:nostr_video_uploader/l10n/app_localizations.dart';
 import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/uploader/uploader_screen.dart';
 import 'package:nostr_widgets/functions/functions.dart';
 import 'package:nostr_widgets/l10n/app_localizations.dart' as nostr_widgets;
 import 'package:window_manager/window_manager.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 // TODO add drag and drop
 // TODO add optional relay
@@ -41,7 +43,15 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      localizationsDelegates: [nostr_widgets.AppLocalizations.delegate],
+      title: AppLocalizations.of(context)!.nostVideoUploader,
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        nostr_widgets.AppLocalizations.delegate
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       home: UploaderScreen(),

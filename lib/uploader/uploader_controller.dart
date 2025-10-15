@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:mime/mime.dart';
 import 'package:ndk/domain_layer/entities/nip_01_event.dart';
 import 'package:nip19/nip19.dart';
+import 'package:nostr_video_uploader/l10n/app_localizations.dart';
 import 'package:nostr_video_uploader/models/video_metadata.dart';
 import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/utils/get_video_metadata.dart';
@@ -49,8 +50,9 @@ class UploaderController extends GetxController {
 
   void selectVideo() async {
     isPickingVideo.value = true;
+    final l10n = AppLocalizations.of(Get.context!)!;
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      dialogTitle: "Select Video",
+      dialogTitle: l10n.selectVideoTitle,
       type: FileType.video,
     );
     isPickingVideo.value = false;
@@ -79,8 +81,9 @@ class UploaderController extends GetxController {
 
   void selectThumbnail() async {
     isPickingThumbnail.value = true;
+    final l10n = AppLocalizations.of(Get.context!)!;
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      dialogTitle: "Select Thumbnail",
+      dialogTitle: l10n.selectThumbnailTitle,
       type: FileType.image,
     );
     isPickingThumbnail.value = false;

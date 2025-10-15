@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nostr_video_uploader/l10n/app_localizations.dart';
 import 'package:nostr_video_uploader/uploader/uploader_controller.dart';
 import 'package:nostr_video_uploader/uploader/widgets/link_view.dart';
 
@@ -11,11 +12,11 @@ class LinksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sharing Links"),
+        title: Text(AppLocalizations.of(context)!.sharingLinks),
         actions: [
           FilledButton(
             onPressed: UploaderController.to.reset,
-            child: Text("New upload"),
+            child: Text(AppLocalizations.of(context)!.newUpload),
           ),
           SizedBox(width: 12),
           if (!kIsWeb && GetPlatform.isDesktop) SizedBox(width: 154),
@@ -25,20 +26,20 @@ class LinksView extends StatelessWidget {
         child: Column(
           children: [
             LinkView(
-              title: "Nevent",
+              title: AppLocalizations.of(context)!.nevent,
               url: "nostr:${UploaderController.to.nevent.value}",
             ),
             LinkView(
-              title: "Njump",
+              title: AppLocalizations.of(context)!.njump,
               url: "https://njump.me/${UploaderController.to.nevent.value}",
             ),
             LinkView(
-              title: "Yakihonne",
+              title: AppLocalizations.of(context)!.yakihonne,
               url:
                   "https://yakihonne.com/video/${UploaderController.to.nevent.value}",
             ),
             LinkView(
-              title: "Plebs",
+              title: AppLocalizations.of(context)!.plebs,
               url:
                   "https://plebs.app/#/video/${UploaderController.to.rawNevent!.eventId}",
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nostr_video_uploader/l10n/app_localizations.dart';
 import 'package:nostr_video_uploader/login_screen.dart';
 import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/uploader/layouts/large_layout.dart';
@@ -34,7 +35,7 @@ class UploaderScreen extends StatelessWidget {
                     onPressed: UploaderController.to.isPickingVideo.value
                         ? null
                         : UploaderController.to.selectVideo,
-                    child: Text("Select Video"),
+                    child: Text(AppLocalizations.of(context)!.selectVideo),
                   ),
                 ),
               ),

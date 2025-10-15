@@ -1,0 +1,155 @@
+{
+  "@@locale": "en",
+  "nostVideoUploader": "Nost video uploader",
+  "@nostVideoUploader": {
+    "description": "Title of the application"
+  },
+  "login": "Login",
+  "@login": {
+    "description": "Button text for logging in"
+  },
+  "videoUploader": "Video Uploader",
+  "@videoUploader": {
+    "description": "Title for the video uploader feature"
+  },
+  "selectVideo": "Select Video",
+  "@selectVideo": {
+    "description": "Button text to select a video to upload"
+  },
+  "sharingLinks": "Sharing Links",
+  "@sharingLinks": {
+    "description": "Title for the sharing links section"
+  },
+  "newUpload": "New upload",
+  "@newUpload": {
+    "description": "Button text to start a new upload"
+  },
+  "nevent": "Nevent",
+  "@nevent": {
+    "description": "Label for the nevent link"
+  },
+  "njump": "Njump",
+  "@njump": {
+    "description": "Label for the njump link"
+  },
+  "yakihonne": "Yakihonne",
+  "@yakihonne": {
+    "description": "Label for the yakihonne link"
+  },
+  "plebs": "Plebs",
+  "@plebs": {
+    "description": "Label for the plebs link"
+  },
+  "title": "Title",
+  "@title": {
+    "description": "Label for the title input field"
+  },
+  "description": "Description",
+  "@description": {
+    "description": "Label for the description input field"
+  },
+  "tags": "Tags",
+  "@tags": {
+    "description": "Label for the tags input field"
+  },
+  "links": "Links",
+  "@links": {
+    "description": "Label for the links input field"
+  },
+  "participants": "Participants",
+  "@participants": {
+    "description": "Label for the participants input field"
+  },
+  "npubWorld": "Npub.world",
+  "@npubWorld": {
+    "description": "Label for the npub.world link"
+  },
+  "npub": "npub",
+  "@npub": {
+    "description": "Hint text for the npub input field"
+  },
+  "thumbnail": "Thumbnail",
+  "@thumbnail": {
+    "description": "Label for the thumbnail section"
+  },
+  "selectThumbnail": "Select Thumbnail",
+  "@selectThumbnail": {
+    "description": "Button text to select a thumbnail"
+  },
+  "firstTimeTheVideoWasPublished": "First time the video was published",
+  "@firstTimeTheVideoWasPublished": {
+    "description": "Label for the first time published date picker"
+  },
+  "selectDate": "Select Date",
+  "@selectDate": {
+    "description": "Button text to select a date"
+  },
+  "shortVideo": "Short Video",
+  "@shortVideo": {
+    "description": "Label for the short video switch"
+  },
+  "nsfw": "NSFW",
+  "@nsfw": {
+    "description": "Label for the NSFW switch"
+  },
+  "upload": "Upload",
+  "@upload": {
+    "description": "Button text to upload the video"
+  },
+  "fetchingYourBlossomsServers": "Fetching your blossoms servers",
+  "@fetchingYourBlossomsServers": {
+    "description": "Status text when fetching blossom servers"
+  },
+  "uploadingVideo": "Uploading video",
+  "@uploadingVideo": {
+    "description": "Status text when uploading the video"
+  },
+  "uploadingThumbnail": "Uploading thumbnail",
+  "@uploadingThumbnail": {
+    "description": "Status text when uploading the thumbnail"
+  },
+  "sendingNostrEvent": "Sending nostr event",
+  "@sendingNostrEvent": {
+    "description": "Status text when sending the nostr event"
+  },
+  "done": "Done",
+  "@done": {
+    "description": "Status text when the upload is done"
+  },
+  "discardChanges": "Discard Changes",
+  "@discardChanges": {
+    "description": "Title for the discard changes dialog"
+  },
+  "yourChangesWillBeLost": "Your changes will be lost.",
+  "@yourChangesWillBeLost": {
+    "description": "Content of the discard changes dialog"
+  },
+  "back": "Back",
+  "@back": {
+    "description": "Button text to go back"
+  },
+  "reset": "Reset",
+  "@reset": {
+    "description": "Button text to reset the form"
+  },
+  "madeWith": "Made with",
+  "@madeWith": {
+    "description": "Part of the 'Made with love by' text"
+  },
+  "by": "by",
+  "@by": {
+    "description": "Part of the 'Made with love by' text"
+  },
+  "viewOnGit": "View on git",
+  "@viewOnGit": {
+    "description": "Button text to view the source code on git"
+  },
+  "selectVideoTitle": "Select Video",
+  "@selectVideoTitle": {
+    "description": "Title for the select video dialog"
+  },
+  "selectThumbnailTitle": "Select Thumbnail",
+  "@selectThumbnailTitle": {
+    "description": "Title for the select thumbnail dialog"
+  }
+}
