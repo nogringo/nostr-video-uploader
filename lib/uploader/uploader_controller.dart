@@ -10,6 +10,7 @@ import 'package:nostr_video_uploader/models/video_metadata.dart';
 import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/utils/get_video_metadata.dart';
 import 'package:nostr_video_uploader/utils/nevent.dart';
+import 'package:nostr_video_uploader/utils/text_parser.dart';
 import 'package:path/path.dart' as p;
 
 class UploaderController extends GetxController {
@@ -19,6 +20,7 @@ class UploaderController extends GetxController {
   final descriptionController = TextEditingController();
   final tagsController = TextEditingController();
   RxSet<String> tags = RxSet<String>({});
+  RxSet<String> links = RxSet<String>({});
   Rx<DateTime> firstTimePublished = Rx<DateTime>(DateTime.now());
 
   Rx<bool> isPickingVideo = false.obs;
@@ -54,6 +56,7 @@ class UploaderController extends GetxController {
 
     videoBasename = result.files.first.name;
     titleController.text = p.basenameWithoutExtension(videoBasename);
+    tags.addAll(extractLinksAndHashtags(titleController.text).hashtags);
     videoExtention = p.extension(videoBasename).split(".").join("");
 
     if (kIsWeb) {
@@ -91,6 +94,18 @@ class UploaderController extends GetxController {
 
     File file = File(result.files.single.path!);
     thumbnail.value = await file.readAsBytes();
+  }
+
+  void titleFieldFocusChanged(bool hasFocus) {
+    if (hasFocus) return;
+    tags.addAll(extractLinksAndHashtags(titleController.text).hashtags);
+  }
+
+  void descriptionFieldFocusChanged(bool hasFocus) {
+    if (hasFocus) return;
+    final extraction = extractLinksAndHashtags(descriptionController.text);
+    tags.addAll(extraction.hashtags);
+    links.addAll(extraction.links);
   }
 
   void tagsFieldChanged(String value) {
@@ -209,8 +224,8 @@ class UploaderController extends GetxController {
     ];
 
     eventTags.addIf(isNSFW, ["content-warning", "nsfw"]);
-
     eventTags.addAll(tags.map((tag) => ["t", tag]));
+    eventTags.addAll(links.map((link) => ["r", link]));
 
     final nostrEvent = Nip01Event(
       pubKey: ndk.accounts.getPublicKey()!,

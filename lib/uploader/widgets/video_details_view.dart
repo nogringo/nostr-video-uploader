@@ -13,20 +13,30 @@ class VideoDetailsView extends StatelessWidget {
       children: [
         Text("Title", style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 4),
-        TextField(
-          controller: UploaderController.to.titleController,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+        Focus(
+          onFocusChange: UploaderController.to.titleFieldFocusChanged,
+          child: TextField(
+            controller: UploaderController.to.titleController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
           ),
         ),
         SizedBox(height: 16),
         Text("Description", style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 4),
-        TextField(
-          controller: UploaderController.to.descriptionController,
-          maxLines: null,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+        Focus(
+          onFocusChange: UploaderController.to.descriptionFieldFocusChanged,
+          child: TextField(
+            controller: UploaderController.to.descriptionController,
+            maxLines: null,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
           ),
         ),
         SizedBox(height: 16),

@@ -11,10 +11,12 @@ import 'package:window_manager/window_manager.dart';
 
 // TODO add participants support
 // TODO add reference links support
-// TODO add more warning
 // TODO must be able to remove an account
 // TODO add hashtags from the description and title to the list of tags
 // TODO add links from the description in the list of links
+// TODO add drag and drop
+
+// TODO later add more warning
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
