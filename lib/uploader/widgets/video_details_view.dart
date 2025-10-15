@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/uploader/uploader_controller.dart';
@@ -266,7 +267,7 @@ class VideoDetailsView extends StatelessWidget {
             }),
           ],
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 32),
         Obx(() {
           return FilledButton(
             onPressed: UploaderController.to.uploadState.value == 0
@@ -310,6 +311,64 @@ class VideoDetailsView extends StatelessWidget {
             );
           },
           child: Text("Reset"),
+        ),
+        SizedBox(height: 32),
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            TextButton(
+              onPressed: () async {
+                await launchUrl(
+                  Uri.parse(
+                    'https://nosta.me/npub1kg4sdvz3l4fr99n2jdz2vdxe2mpacva87hkdetv76ywacsfq5leqquw5te',
+                  ),
+                );
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Made with"),
+                  SizedBox(width: 8),
+                  Icon(Icons.favorite),
+                  SizedBox(width: 8),
+                  Text("by"),
+                  SizedBox(width: 8),
+                  NPicture(
+                    ndk: Repository.ndk,
+                    pubkey:
+                        "b22b06b051fd5232966a9344a634d956c3dc33a7f5ecdcad9ed11ddc4120a7f2",
+                    circleAvatarRadius: 8,
+                  ),
+                  SizedBox(width: 8),
+                  NName(
+                    ndk: Repository.ndk,
+                    pubkey:
+                        "b22b06b051fd5232966a9344a634d956c3dc33a7f5ecdcad9ed11ddc4120a7f2",
+                  ),
+                ],
+              ),
+            ),
+            TextButton.icon(
+              onPressed: () async {
+                await launchUrl(
+                  Uri.parse(
+                    'https://gitworkshop.dev/npub1kg4sdvz3l4fr99n2jdz2vdxe2mpacva87hkdetv76ywacsfq5leqquw5te/nostr-video-uploader',
+                  ),
+                );
+              },
+              label: Text("View on git"),
+              icon: SvgPicture.asset(
+                'assets/images/git.svg',
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.primary,
+                  BlendMode.srcIn,
+                ),
+                height: 16,
+              ),
+            ),
+          ],
         ),
       ],
     );
