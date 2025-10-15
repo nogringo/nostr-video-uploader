@@ -9,7 +9,7 @@ ParsedText extractLinksAndHashtags(String text) {
   final RegExp hashtagRegExp = RegExp(r"#(\w+)");
 
   final RegExp linkRegExp = RegExp(
-    r'^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$',
+    r'https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$',
   );
 
   final List<String> hashtags = hashtagRegExp

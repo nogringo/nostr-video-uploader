@@ -44,7 +44,6 @@ class VideoDetailsView extends StatelessWidget {
         SizedBox(height: 4),
         TextField(
           controller: UploaderController.to.tagsController,
-          maxLines: null,
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
             suffixIcon: Padding(
@@ -56,6 +55,7 @@ class VideoDetailsView extends StatelessWidget {
             ),
           ),
           onChanged: UploaderController.to.tagsFieldChanged,
+          onSubmitted: (_) => UploaderController.to.addTags,
         ),
         Obx(() {
           if (UploaderController.to.tags.isEmpty) {
@@ -73,6 +73,45 @@ class VideoDetailsView extends StatelessWidget {
                       label: Text(tag),
                       shape: StadiumBorder(),
                       onDeleted: () => UploaderController.to.tags.remove(tag),
+                    ),
+                  )
+                  .toList(),
+            ),
+          );
+        }),
+        SizedBox(height: 16),
+        Text("Links", style: Theme.of(context).textTheme.titleMedium),
+        SizedBox(height: 4),
+        TextField(
+          controller: UploaderController.to.linksController,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.only(right: 4),
+              child: IconButton(
+                onPressed: UploaderController.to.addLink,
+                icon: Icon(Icons.add),
+              ),
+            ),
+          ),
+          onSubmitted: (_) => UploaderController.to.addLink(),
+        ),
+        Obx(() {
+          if (UploaderController.to.links.isEmpty) {
+            return Container();
+          }
+
+          return Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Wrap(
+              runSpacing: 8,
+              spacing: 8,
+              children: UploaderController.to.links
+                  .map(
+                    (link) => Chip(
+                      label: Text(link),
+                      shape: StadiumBorder(),
+                      onDeleted: () => UploaderController.to.links.remove(link),
                     ),
                   )
                   .toList(),

@@ -20,6 +20,7 @@ class UploaderController extends GetxController {
   final descriptionController = TextEditingController();
   final tagsController = TextEditingController();
   RxSet<String> tags = RxSet<String>({});
+  final linksController = TextEditingController();
   RxSet<String> links = RxSet<String>({});
   Rx<DateTime> firstTimePublished = Rx<DateTime>(DateTime.now());
 
@@ -104,6 +105,7 @@ class UploaderController extends GetxController {
   void descriptionFieldFocusChanged(bool hasFocus) {
     if (hasFocus) return;
     final extraction = extractLinksAndHashtags(descriptionController.text);
+    print(extraction.links);
     tags.addAll(extraction.hashtags);
     links.addAll(extraction.links);
   }
@@ -120,6 +122,11 @@ class UploaderController extends GetxController {
         .forEach((tag) => tags.add(tag));
 
     tagsController.clear();
+  }
+
+  void addLink() {
+    links.add(linksController.text.trim());
+    linksController.clear();
   }
 
   void selectFirstTimePublished() async {
