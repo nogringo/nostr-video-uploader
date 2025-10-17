@@ -26,7 +26,7 @@ class UploaderScreen extends StatelessWidget {
             return LinksView();
           }
 
-          if (UploaderController.to.video.value == null) {
+          if (UploaderController.to.videoMetadata.value == null) {
             return Scaffold(
               body: Center(
                 child: SizedBox(

@@ -30,7 +30,7 @@ class UploaderController extends GetxController {
 
   Rx<bool> isPickingVideo = false.obs;
   Rx<Uint8List?> video = Rx<Uint8List?>(null);
-  late VideoMetadata videoMetadata;
+  Rx<VideoMetadata?> videoMetadata = Rx<VideoMetadata?>(null);
   String videoExtention = "mp4";
   String videoBasename = "";
 
@@ -72,14 +72,12 @@ class UploaderController extends GetxController {
       video.value = await file.readAsBytes();
     }
 
-    videoMetadata = await getVideoMetadata(video.value!);
-    print(videoMetadata.duration);
-    print(videoMetadata.height);
-    print(videoMetadata.width);
-    print(videoMetadata.thumbnail == null);
+    videoMetadata.value = await getVideoMetadata(video.value!);
 
-    if (videoMetadata.thumbnail != null) {
-      thumbnail.value = videoMetadata.thumbnail;
+    isShortVideo.value = videoMetadata.value!.duration.inSeconds <= 60;
+
+    if (videoMetadata.value!.thumbnail != null) {
+      thumbnail.value = videoMetadata.value!.thumbnail;
     }
   }
 
@@ -203,7 +201,7 @@ class UploaderController extends GetxController {
 
     final imeta = [
       "imeta",
-      "dim ${videoMetadata.width}x${videoMetadata.height}",
+      "dim ${videoMetadata.value!.width}x${videoMetadata.value!.height}",
       "url ${videoUrls.first}",
       "x $videoSha256",
       "m $videoContentType",
@@ -246,7 +244,7 @@ class UploaderController extends GetxController {
 
       imeta,
 
-      ["duration", videoMetadata.duration.inSeconds.toString()],
+      ["duration", videoMetadata.value!.duration.inSeconds.toString()],
     ];
 
     eventTags.addIf(isNSFW, ["content-warning", "nsfw"]);
