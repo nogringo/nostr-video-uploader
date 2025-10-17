@@ -243,7 +243,10 @@ class VideoDetailsView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(l10n.shortVideo, style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              l10n.shortVideo,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             Obx(() {
               return Switch(
                 value: UploaderController.to.isShortVideo.value,

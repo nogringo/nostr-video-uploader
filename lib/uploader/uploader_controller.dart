@@ -73,6 +73,10 @@ class UploaderController extends GetxController {
     }
 
     videoMetadata = await getVideoMetadata(video.value!);
+    print(videoMetadata.duration);
+    print(videoMetadata.height);
+    print(videoMetadata.width);
+    print(videoMetadata.thumbnail == null);
 
     if (videoMetadata.thumbnail != null) {
       thumbnail.value = videoMetadata.thumbnail;

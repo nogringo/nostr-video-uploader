@@ -43,13 +43,14 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: AppLocalizations.of(context)!.nostVideoUploader,
+      onGenerateTitle: (context) =>
+          AppLocalizations.of(context)!.nostVideoUploader,
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
-        nostr_widgets.AppLocalizations.delegate
+        nostr_widgets.AppLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData.light(),
