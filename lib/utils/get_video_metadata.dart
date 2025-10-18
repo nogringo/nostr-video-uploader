@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/foundation.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
@@ -16,6 +14,7 @@ Future<VideoMetadata> getVideoMetadata(Uint8List videoBytes) async {
     // Open the video from memory
     final media = await Media.memory(videoBytes);
     await player.open(media);
+    player.setVolume(0);
 
     // Wait a bit for the player to load the video
     await Future.delayed(const Duration(seconds: 1));

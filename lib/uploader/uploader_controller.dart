@@ -10,14 +10,17 @@ import 'package:nip19/nip19.dart';
 import 'package:nostr_video_uploader/l10n/app_localizations.dart';
 import 'package:nostr_video_uploader/models/video_metadata.dart';
 import 'package:nostr_video_uploader/repository.dart';
+import 'package:nostr_video_uploader/utils/download_image.dart';
 import 'package:nostr_video_uploader/utils/get_video_metadata.dart';
 import 'package:nostr_video_uploader/utils/nevent.dart';
 import 'package:nostr_video_uploader/utils/text_parser.dart';
 import 'package:path/path.dart' as p;
+import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class UploaderController extends GetxController {
   static UploaderController get to => Get.find();
 
+  final youtubeFieldController = TextEditingController();
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final tagsController = TextEditingController();
@@ -103,6 +106,39 @@ class UploaderController extends GetxController {
 
     File file = File(result.files.single.path!);
     thumbnail.value = await file.readAsBytes();
+  }
+
+  void loadYoutubeMetadata() async {
+    final fieldContent = youtubeFieldController.text.trim();
+
+    var yt = YoutubeExplode();
+
+    Video? video;
+    try {
+      video = await yt.videos.get(fieldContent);
+    } catch (e) {
+      return;
+    }
+
+    titleController.text = video.title;
+    final titleExtraction = extractLinksAndHashtags(video.title);
+    tags.addAll(titleExtraction.hashtags);
+    descriptionController.text = video.description;
+    final descriptionExtraction = extractLinksAndHashtags(video.description);
+    tags.addAll(descriptionExtraction.hashtags);
+    links.add("https://www.youtube.com/watch?v=${video.id.value}");
+    links.addAll(descriptionExtraction.links);
+
+    if (video.publishDate != null) {
+      firstTimePublished.value = video.publishDate!;
+    }
+
+    thumbnail.value = await downloadImage(video.thumbnails.maxResUrl);
+
+    Get.back();
+
+    yt.close();
+    youtubeFieldController.clear();
   }
 
   void titleFieldFocusChanged(bool hasFocus) {

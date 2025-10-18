@@ -9,7 +9,22 @@ ParsedText extractLinksAndHashtags(String text) {
   final RegExp hashtagRegExp = RegExp(r"#(\w+)");
 
   final RegExp linkRegExp = RegExp(
-    r'https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$',
+    r'(?:(?:https?|ftp)://)' // protocol (http, https, ftp)
+    r'(?:\S+(?::\S*)?@)?' // optional username:password@
+    r'(?:' // IP address or domain name
+    r'(?:(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])' // 1‑255
+    r'(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}'
+    r'(?:\.(?:[0-9]\d?|1\d\d|2[0-4]\d|25[0-5]))'
+    r'|' // …or…
+    r'(?:(?:[a-z\u00a1-\uffff0-9]-*)*' // sub‑domains
+    r'[a-z\u00a1-\uffff0-9]+)'
+    r'(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*'
+    r'[a-z\u00a1-\uffff0-9]+)*' // second‑level domains
+    r'\.(?:[a-z\u00a1-\uffff]{2,}))' // top‑level domain
+    r')'
+    r'(?::\d{2,5})?' // optional port
+    r'(?:/[^\s]*)?', // optional path/query
+    caseSensitive: false,
   );
 
   final List<String> hashtags = hashtagRegExp

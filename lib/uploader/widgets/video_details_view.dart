@@ -17,6 +17,44 @@ class VideoDetailsView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Align(
+          alignment: Alignment.centerRight,
+          child: TextButton.icon(
+            onPressed: () {
+              Get.dialog(
+                AlertDialog(
+                  title: Row(
+                    children: [
+                      Expanded(child: Text("Youtube link")),
+                      CloseButton(),
+                    ],
+                  ),
+                  content: TextField(
+                    controller: UploaderController.to.youtubeFieldController,
+                    onSubmitted: (_) =>
+                        UploaderController.to.loadYoutubeMetadata(),
+                  ),
+                  actions: [
+                    TextButton(onPressed: Get.back, child: Text("Cancel")),
+                    FilledButton(
+                      onPressed: UploaderController.to.loadYoutubeMetadata,
+                      child: Text("Load"),
+                    ),
+                  ],
+                ),
+              );
+            },
+            label: Text("Use Youtube metadata"),
+            icon: SvgPicture.asset(
+              'assets/images/youtube.svg',
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).colorScheme.primary,
+                BlendMode.srcIn,
+              ),
+              height: 16,
+            ),
+          ),
+        ),
         Text(l10n.title, style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 4),
         Focus(
