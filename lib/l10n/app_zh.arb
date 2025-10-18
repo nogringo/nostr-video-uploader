@@ -37,5 +37,9 @@
   "by": "制作",
   "viewOnGit": "在 git 上查看",
   "selectVideoTitle": "选择视频",
-  "selectThumbnailTitle": "选择缩略图"
+  "selectThumbnailTitle": "选择缩略图",
+  "youtubeLink": "Youtube链接",
+  "cancel": "取消",
+  "load": "加载",
+  "useYoutubeMetadata": "使用Youtube元数据"
 }

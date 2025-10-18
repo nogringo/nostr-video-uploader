@@ -123,4 +123,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get selectThumbnailTitle => 'Sélectionner une miniature';
+
+  @override
+  String get youtubeLink => 'Lien Youtube';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get load => 'Charger';
+
+  @override
+  String get useYoutubeMetadata => 'Utiliser les métadonnées Youtube';
 }

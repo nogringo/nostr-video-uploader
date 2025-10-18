@@ -37,5 +37,9 @@
   "by": "от",
   "viewOnGit": "Посмотреть на git",
   "selectVideoTitle": "Выбрать видео",
-  "selectThumbnailTitle": "Выбрать миниатюру"
+  "selectThumbnailTitle": "Выбрать миниатюру",
+  "youtubeLink": "Ссылка на Youtube",
+  "cancel": "Отмена",
+  "load": "Загрузить",
+  "useYoutubeMetadata": "Использовать метаданные Youtube"
 }

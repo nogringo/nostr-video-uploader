@@ -121,4 +121,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get selectThumbnailTitle => 'Выбрать миниатюру';
+
+  @override
+  String get youtubeLink => 'Ссылка на Youtube';
+
+  @override
+  String get cancel => 'Отмена';
+
+  @override
+  String get load => 'Загрузить';
+
+  @override
+  String get useYoutubeMetadata => 'Использовать метаданные Youtube';
 }

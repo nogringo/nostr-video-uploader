@@ -121,4 +121,16 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get selectThumbnailTitle => '选择缩略图';
+
+  @override
+  String get youtubeLink => 'Youtube链接';
+
+  @override
+  String get cancel => '取消';
+
+  @override
+  String get load => '加载';
+
+  @override
+  String get useYoutubeMetadata => '使用Youtube元数据';
 }

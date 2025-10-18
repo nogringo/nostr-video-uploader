@@ -333,6 +333,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Thumbnail'**
   String get selectThumbnailTitle;
+
+  /// Title for the Youtube link dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Youtube link'**
+  String get youtubeLink;
+
+  /// Button text to cancel an action
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Button text to load something
+  ///
+  /// In en, this message translates to:
+  /// **'Load'**
+  String get load;
+
+  /// Button text to use Youtube metadata
+  ///
+  /// In en, this message translates to:
+  /// **'Use Youtube metadata'**
+  String get useYoutubeMetadata;
 }
 
 class _AppLocalizationsDelegate

@@ -122,4 +122,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectThumbnailTitle => 'Select Thumbnail';
+
+  @override
+  String get youtubeLink => 'Youtube link';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get load => 'Load';
+
+  @override
+  String get useYoutubeMetadata => 'Use Youtube metadata';
 }

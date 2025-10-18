@@ -37,5 +37,9 @@
   "by": "",
   "viewOnGit": "gitで表示",
   "selectVideoTitle": "ビデオを選択",
-  "selectThumbnailTitle": "サムネイルを選択"
+  "selectThumbnailTitle": "サムネイルを選択",
+  "youtubeLink": "Youtubeリンク",
+  "cancel": "キャンセル",
+  "load": "読み込む",
+  "useYoutubeMetadata": "Youtubeのメタデータを使用"
 }

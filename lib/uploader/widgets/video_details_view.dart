@@ -25,7 +25,7 @@ class VideoDetailsView extends StatelessWidget {
                 AlertDialog(
                   title: Row(
                     children: [
-                      Expanded(child: Text("Youtube link")),
+                      Expanded(child: Text(l10n.youtubeLink)),
                       CloseButton(),
                     ],
                   ),
@@ -35,16 +35,16 @@ class VideoDetailsView extends StatelessWidget {
                         UploaderController.to.loadYoutubeMetadata(),
                   ),
                   actions: [
-                    TextButton(onPressed: Get.back, child: Text("Cancel")),
+                    TextButton(onPressed: Get.back, child: Text(l10n.cancel)),
                     FilledButton(
                       onPressed: UploaderController.to.loadYoutubeMetadata,
-                      child: Text("Load"),
+                      child: Text(l10n.load),
                     ),
                   ],
                 ),
               );
             },
-            label: Text("Use Youtube metadata"),
+            label: Text(l10n.useYoutubeMetadata),
             icon: SvgPicture.asset(
               'assets/images/youtube.svg',
               colorFilter: ColorFilter.mode(

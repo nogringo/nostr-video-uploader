@@ -37,5 +37,9 @@
   "by": "par",
   "viewOnGit": "Voir sur git",
   "selectVideoTitle": "Sélectionner une vidéo",
-  "selectThumbnailTitle": "Sélectionner une miniature"
+  "selectThumbnailTitle": "Sélectionner une miniature",
+  "youtubeLink": "Lien Youtube",
+  "cancel": "Annuler",
+  "load": "Charger",
+  "useYoutubeMetadata": "Utiliser les métadonnées Youtube"
 }

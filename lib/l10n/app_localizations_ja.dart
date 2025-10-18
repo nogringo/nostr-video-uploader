@@ -121,4 +121,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get selectThumbnailTitle => 'サムネイルを選択';
+
+  @override
+  String get youtubeLink => 'Youtubeリンク';
+
+  @override
+  String get cancel => 'キャンセル';
+
+  @override
+  String get load => '読み込む';
+
+  @override
+  String get useYoutubeMetadata => 'Youtubeのメタデータを使用';
 }

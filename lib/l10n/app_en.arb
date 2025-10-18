@@ -151,5 +151,21 @@
   "selectThumbnailTitle": "Select Thumbnail",
   "@selectThumbnailTitle": {
     "description": "Title for the select thumbnail dialog"
+  },
+  "youtubeLink": "Youtube link",
+  "@youtubeLink": {
+    "description": "Title for the Youtube link dialog"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Button text to cancel an action"
+  },
+  "load": "Load",
+  "@load": {
+    "description": "Button text to load something"
+  },
+  "useYoutubeMetadata": "Use Youtube metadata",
+  "@useYoutubeMetadata": {
+    "description": "Button text to use Youtube metadata"
   }
 }
