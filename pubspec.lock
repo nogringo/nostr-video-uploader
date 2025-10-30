@@ -25,14 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.7.0"
-  ascii_qr:
-    dependency: transitive
-    description:
-      name: ascii_qr
-      sha256: "2046e400a0fa4ea0de5df44c87b992cdd1f76403bb15e64513b89263598750ae"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   async:
     dependency: transitive
     description:
@@ -215,10 +207,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: c2fe1001710127dfa7da89977a08d591398370d099aacdaa6d44da7eb14b8476
+      sha256: "306f0596590e077338312f38837f595c04f28d6cdeeac392d3d74df2f0003687"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.31"
+    version: "2.0.32"
   flutter_secure_storage:
     dependency: transitive
     description:
@@ -405,14 +397,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
-  logger:
-    dependency: transitive
-    description:
-      name: logger
-      sha256: a7967e31b703831a893bbc3c3dd11db08126fe5f369b5c648a36f821979f5be3
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.6.2"
   logging:
     dependency: transitive
     description:
@@ -521,18 +505,18 @@ packages:
     dependency: "direct main"
     description:
       name: ndk
-      sha256: "6e71dc1b797aaffb5c4246d09d11ff69b5682c8e35549be52e5371473eb309c2"
+      sha256: e4408fa2b82404f9a78369593a221f0e725fa158a95a83b5235588f5b441cf72
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.0-dev.4"
   ndk_amber:
     dependency: transitive
     description:
       name: ndk_amber
-      sha256: "757dce858237ffc6b1b2e1362ec9e633d5218a6c4fea450d7f5b5d6783543df6"
+      sha256: "52ef09dc32d158a07814cdf4835909d50b9436a121a1bd29683aa782d0a49e00"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.2"
+    version: "0.3.3-dev.3"
   nip01:
     dependency: transitive
     description:
@@ -545,10 +529,10 @@ packages:
     dependency: transitive
     description:
       name: nip07_event_signer
-      sha256: f5b704fd6f047f28a398ff93cac3cfd4bf0833242f3ccd2b27583425139dd4cc
+      sha256: edbee6ea195815cc969473b7b7a416fb4f2cde30920db682498c9b9f9ae3e2b8
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.4-dev.3"
   nip19:
     dependency: "direct main"
     description:
@@ -560,11 +544,10 @@ packages:
   nostr_widgets:
     dependency: "direct main"
     description:
-      name: nostr_widgets
-      sha256: f14b9dce3be0e0ff0b7039f2730e9dbd69a13a0aa18e4863bbc0442bae063103
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
+      path: "../nostr_widgets"
+      relative: true
+    source: path
+    version: "1.1.4"
   package_info_plus:
     dependency: transitive
     description:
@@ -609,18 +592,18 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "3b4c1fc3aa55ddc9cd4aa6759984330d5c8e66aa7702a6223c61540dc6380c37"
+      sha256: e122c5ea805bb6773bb12ce667611265980940145be920cd09a4b0ec0285cb16
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.19"
+    version: "2.2.20"
   path_provider_foundation:
     dependency: transitive
     description:
       name: path_provider_foundation
-      sha256: "16eef174aacb07e09c351502740fa6254c165757638eba1e9116b0a781201bbd"
+      sha256: efaec349ddfc181528345c56f8eda9d6cccd71c177511b132c6a0ddaefaa2738
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2"
+    version: "2.4.3"
   path_provider_linux:
     dependency: transitive
     description:
@@ -918,10 +901,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_ios
-      sha256: d80b3f567a617cb923546034cc94bfe44eb15f989fe670b37f26abdb9d939cb7
+      sha256: "6b63f1441e4f653ae799166a72b50b1767321ecc263a57aadf825a7a2a5477d9"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.4"
+    version: "6.3.5"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -934,10 +917,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_macos
-      sha256: c043a77d6600ac9c38300567f33ef12b0ef4f4783a2c1f00231d2b1941fea13f
+      sha256: "8262208506252a3ed4ff5c0dc1e973d2c0e0ef337d0a074d35634da5d44397c9"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.3"
+    version: "3.2.4"
   url_launcher_platform_interface:
     dependency: transitive
     description:

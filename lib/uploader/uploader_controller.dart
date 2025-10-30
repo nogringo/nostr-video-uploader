@@ -297,6 +297,8 @@ class UploaderController extends GetxController {
 
     uploadState.value = 4;
 
+    await ndk.accounts.getLoggedAccount()!.signer.sign(nostrEvent);
+
     final broadcastRes = ndk.broadcast.broadcast(nostrEvent: nostrEvent);
 
     final relayBroadcastResponses = await broadcastRes.broadcastDoneFuture;
@@ -332,5 +334,6 @@ class UploaderController extends GetxController {
     uploadState.value = 0;
     rawNevent = null;
     nevent.value = null;
+    videoMetadata.value = null;
   }
 }

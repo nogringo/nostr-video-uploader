@@ -38,11 +38,11 @@ class LinksView extends StatelessWidget {
               url:
                   "https://yakihonne.com/video/${UploaderController.to.nevent.value}",
             ),
-            LinkView(
-              title: AppLocalizations.of(context)!.plebs,
-              url:
-                  "https://plebs.app/#/video/${UploaderController.to.rawNevent!.eventId}",
-            ),
+            // LinkView(
+            //   title: AppLocalizations.of(context)!.plebs,
+            //   url:
+            //       "https://plebs.app/#/video/${UploaderController.to.rawNevent!.eventId}",
+            // ),
             SizedBox(height: kToolbarHeight),
           ],
         ),
