@@ -322,6 +322,10 @@ class UploaderController extends GetxController {
     descriptionController.clear();
     tagsController.clear();
     tags.clear();
+    linksController.clear();
+    links.clear();
+    participantsController.clear();
+    participants.clear();
     firstTimePublished.value = DateTime.now();
     video.value = null;
     thumbnail.value = null;
