@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:ndk/ndk.dart';
+import 'package:ndk_flutter/ndk_flutter.dart';
 import 'package:nostr_video_uploader/l10n/app_localizations.dart';
 import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/uploader/uploader_screen.dart';
-import 'package:nostr_widgets/functions/functions.dart';
-import 'package:nostr_widgets/l10n/app_localizations.dart' as nostr_widgets;
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ndk_flutter/l10n/app_localizations.dart' as ndk_flutter;
 
 // TODO add drag and drop
 // TODO add optional relay
 // TODO add client tag
 // TODO later add more warning
+// TODO add a cache
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,9 +30,11 @@ void main() async {
   }
 
   final ndk = Ndk.defaultConfig();
-  await nRestoreAccounts(ndk);
+  final ndkFlutter = NdkFlutter(ndk: ndk);
+  await ndkFlutter.restoreAccountsState();
 
   Get.put(ndk);
+  Get.put(ndkFlutter);
   Get.put(Repository());
 
   runApp(const MainApp());
@@ -50,7 +53,7 @@ class MainApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
-        nostr_widgets.AppLocalizations.delegate,
+        ndk_flutter.AppLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData.light(),

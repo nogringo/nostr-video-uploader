@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ndk_flutter/ndk_flutter.dart';
 import 'package:nostr_video_uploader/login_screen.dart';
 import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/uploader/uploader_controller.dart';
-import 'package:nostr_widgets/nostr_widgets.dart';
 
 class AccountsView extends StatelessWidget {
   final Axis direction;
@@ -17,7 +17,7 @@ class AccountsView extends StatelessWidget {
         direction: direction,
         spacing: 8,
         children: [
-          NPicture(ndk: Repository.ndk),
+          NPicture(ndkFlutter: Repository.ndkFlutter),
 
           if (UploaderController.to.isAccountsExpanded.value)
             ...Repository.ndk.accounts.accounts.values
@@ -42,7 +42,7 @@ class AccountsView extends StatelessWidget {
                         UploaderController.to.isAccountsExpanded.value = false;
                       },
                       child: NPicture(
-                        ndk: Repository.ndk,
+                        ndkFlutter: Repository.ndkFlutter,
                         pubkey: account.pubkey,
                       ),
                     ),
@@ -61,7 +61,7 @@ class AccountsView extends StatelessWidget {
             IconButton(
               onPressed: () async {
                 Repository.ndk.accounts.logout();
-                await nSaveAccountsState(Repository.ndk);
+                await Repository.ndkFlutter.saveAccountsState();
                 if (Repository.ndk.accounts.accounts.isNotEmpty) {
                   Repository.ndk.accounts.switchAccount(
                     pubkey: Repository.ndk.accounts.accounts.keys.first,

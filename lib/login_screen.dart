@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ndk/domain_layer/usecases/bunkers/models/nostr_connect.dart';
+import 'package:ndk_flutter/ndk_flutter.dart';
 import 'package:nostr_video_uploader/l10n/app_localizations.dart';
 import 'package:nostr_video_uploader/repository.dart';
-import 'package:nostr_widgets/nostr_widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 400),
               child: NLogin(
-                ndk: Repository.ndk,
+                ndkFlutter: Repository.ndkFlutter,
                 enablePubkeyLogin: false,
                 nostrConnect: NostrConnect(
                   appName: AppLocalizations.of(context)!.videoUploader,

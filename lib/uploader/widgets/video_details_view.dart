@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ndk_flutter/ndk_flutter.dart';
 import 'package:nostr_video_uploader/l10n/app_localizations.dart';
 import 'package:nostr_video_uploader/repository.dart';
 import 'package:nostr_video_uploader/uploader/uploader_controller.dart';
 import 'package:intl/intl.dart';
-import 'package:nostr_widgets/nostr_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class VideoDetailsView extends StatelessWidget {
@@ -207,11 +207,11 @@ class VideoDetailsView extends StatelessWidget {
                   .map(
                     (participantPubkey) => Chip(
                       avatar: NPicture(
-                        ndk: Repository.ndk,
+                        ndkFlutter: Repository.ndkFlutter,
                         pubkey: participantPubkey,
                       ),
                       label: NName(
-                        ndk: Repository.ndk,
+                        ndkFlutter: Repository.ndkFlutter,
                         pubkey: participantPubkey,
                       ),
                       shape: StadiumBorder(),
@@ -379,14 +379,14 @@ class VideoDetailsView extends StatelessWidget {
                   Text(l10n.by),
                   SizedBox(width: 8),
                   NPicture(
-                    ndk: Repository.ndk,
+                    ndkFlutter: Repository.ndkFlutter,
                     pubkey:
                         "b22b06b051fd5232966a9344a634d956c3dc33a7f5ecdcad9ed11ddc4120a7f2",
                     circleAvatarRadius: 8,
                   ),
                   SizedBox(width: 8),
                   NName(
-                    ndk: Repository.ndk,
+                    ndkFlutter: Repository.ndkFlutter,
                     pubkey:
                         "b22b06b051fd5232966a9344a634d956c3dc33a7f5ecdcad9ed11ddc4120a7f2",
                   ),

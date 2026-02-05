@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mime/mime.dart';
 import 'package:ndk/domain_layer/entities/nip_01_event.dart';
-import 'package:nip19/nip19.dart';
+import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:nostr_video_uploader/l10n/app_localizations.dart';
 import 'package:nostr_video_uploader/models/video_metadata.dart';
 import 'package:nostr_video_uploader/repository.dart';
@@ -174,7 +174,7 @@ class UploaderController extends GetxController {
 
   void participantFieldChanged(String value) {
     try {
-      final pubkey = Nip19.npubToHex(value.trim());
+      final pubkey = Nip19.decode(value.trim());
       participants.add(pubkey);
       participantsController.clear();
     } catch (e) {
